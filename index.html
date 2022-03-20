@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8>
+  <meta name=renderer content=webkit>
+  <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+  <title>WooYun知识库</title>
+  <meta name=description content="乌云知识库, WooYun知识库, Wooyun Drops">
+  <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+  <meta http-equiv=pragma content=no-cache>
+  <meta http-equiv=cache-control content=no-cache>
+  <meta http-equiv=expires content=0>
+  <!-- <script>var url = window.location.href; if (url.indexOf('https') < 0) window.location.replace(url.replace('http:', 'https:'));</script> -->
+  <script src=static/js/jquery.min.js></script>
+  <script src=static/lightbox2/js/lightbox.min.js></script>
+  <script>
+    $(function(){
+      if (window.location.hash == '#!/'){$("#tips").hide();}
+      $('.nav-home').click(function(){$("#tips").hide();console.info(1);window.location.href='/'});
+      $('.drop-list').click(function(){console.info(2);window.location.reload();});
+      var page_hash = location.hash.split('/')[2];
+      var page_id = 0;
+      if (page_hash == undefined ){$("#tips").hide();return 0;}else{console.info("正在查看 <" + decodeURI(page_hash) + "> 文章!");page_id = page_hash.split('.')[0];}
+      $.get("/bugs/recordpages.php?page_id="+page_id, function(data){
+        if (data.toString() == "1") {
+          $("#tips").html("<p><a href='#' class='btn .btn-success' style='color: red'>文章已阅读</a></p>");
+        } else if(data.toString() == "2") {
+          $("#tips").html("<p><a href='#' class='btn .btn-secondary'>文章已标记阅读</a></p>");
+        } else {
+          $("#tips").html("<p><a href='/bugs/recordpages.php?page_id="+page_id+"&action=update&back="+window.btoa(page_hash)+"' class='btn .btn-primary'>文章未阅读(点击标记)</a></p>");
+        }
+      })
+    });
+  </script>
+  <link rel=stylesheet href=static/css/bootstrap.min.css>
+  <link rel=stylesheet href=static/lightbox2/css/lightbox.min.css>
+  <link rel=stylesheet href=static/css/main.min.css>
+  <link href=static/css/app.671549f819ada157093c2d6c0d0751fd.css rel=stylesheet>
+  
+</head>
+
+<body>
+  <div style="text-align: center;color: red;font-size: medium;" id="tips"></div>
+  <app></app>
+  <script type=text/javascript src=static/js/manifest.fe4e42811ec65a47985c.js></script>
+  <script type=text/javascript src=static/js/vendor.234059a7349321e00abf.js></script>
+  <script type=text/javascript src=static/js/app.7e134687d8e43de4a026.js></script>
+</body>
+</html>
